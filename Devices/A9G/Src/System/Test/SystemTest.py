@@ -3,37 +3,28 @@ import Shadow
 import time
 import uos as os
 
-class FileTest(): 
+class FileTest():
     
-    def __init__(self, file, extension,fileType, mode ):
-        self.file = file
-        self.testFile = Shadow.File(file,extension,fileType,mode)
-        self.testData = "WaterMellon"
-
+    def __init__(self, folder,fileName,fileExtension,fileType ):
+        self.testFile = Shadow.File(folder,fileName,fileExtension,fileType)
+        self.testData = None
+# 
     def selfTest(self):
-        file = open("test.txt", "w+")
+        file = open("testmydogg.txt", "w+")
         file.write("test")
         file.close()
         os.listdir()
         os.listdir()
-
     
-    def create(self, data = None):
+    def testWrite(self, data = None):
         if data == None:
             data = self.testData
         self.testFile.write(data)
-    
-    def remove(self):
-        self.testFile.remove()
         
-    
-    
-    def moveClone(self):
-        #self.selfTest()
-        #self.create()
-        self.remove()
-        #self.testFile.moveTo("TestingMyPasta.txt")
-        #self.cloneTo("/t/System/Test/TestLocation2")
-        return True 
+    def testMove(self, folder, fileName, data, delete = False):
+        self.testWrite(data)
+        os.listdir("/t/System/")
+        self.testFile.cloneTo(folder, fileName ,"w" ,delete)
+
     
 

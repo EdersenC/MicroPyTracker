@@ -13,8 +13,9 @@ import SystemTest as fileTest
 
 
 def runTest():
-    writeWater = fileTest.FileTest("pizzadof.txt","txt","text","w+")
-    writeWater.moveClone()
+    writeWater = fileTest.FileTest("/t/System/Test/TestLocation1","Eddy.txt","txt","w")
+    writeWater.testMove(folder = "/t/System/Test/TestLocation2",fileName ="TheApple.json",data="I Love Soda", delete = True)
+    #writeWater.selfTest()
     return True
 
 
