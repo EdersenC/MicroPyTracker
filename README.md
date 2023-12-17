@@ -5,5 +5,4 @@ This repository is dedicated to tracking and documenting Python-compatible micro
 
 ## Compatible Devices
 
-### A9G Module
-- [A9G](/Devices/A9G/README.md)
+### [A9G Module](/Devices/A9G/README.md)
