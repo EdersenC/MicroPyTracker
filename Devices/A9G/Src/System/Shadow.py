@@ -72,21 +72,20 @@ class State():
 
 
 
-class File(): 
+class FileHandler(): 
     def __init__(self, folder,fileName, extension, fileType):
         self.folder = folder
         self.fileName = fileName
-        self.file = None
-        self.setFile(self.folder, self.fileName)
-        self.extension = "."+extension
+        self.extension = extension 
+        self.setFile(self.folder, self.fileName, self.extension)
         self.fileType = fileType
         
-    def setFile(self, folder, file):
-        self.file = folder+file
+    def setFile(self, folder, file, extension):
+        self.file = folder+file+extension
         print("File: {0} Before".format(self.file))
         print(folder.endswith('/'))
         if not folder.endswith('/'):
-            self.file = folder+"/"+file
+            self.file = folder+"/"+file+extension
             print("File: {0} After ".format(self.file))
             
     def getFileType(self):
@@ -125,12 +124,47 @@ class File():
         newFile = fileName
         if fileName == None:
             newFile = "TestMove"+ str(random.randrange(10))+self.extension
-        clone = File(folder, newFile, self.extension, self.fileType)
+        clone = FileHandler(folder, newFile, self.extension, self.fileType)
         clone.write(self.read())
         if delete:
             self.remove()
-            self.setFile(self.folder, self.fileName)
+            self.setFile(self.folder, self.fileName,self.extension)
         del clone
         return True 
+
+
+
+
+class JsonHandler(FileHandler):
+    def __init__(self, folder, fileName, extension, fileType, dic = {} ):
+        self.fileHandler = FileHandler(folder,fileName, extension, fileType)
+        self.file = self.fileHandler.getFile()
+        self.folder = folder
+        self.fileName = fileName
+        self.extension = extension
+        self.fileType = fileType
+        self.dic = dic
+        pass
+    
+    def formatDict(self, dic):
+        return json.dumps(dic)
+    
+    def getDict(self):
+        return self.dic
+    
+    
+    def write(self, dic, mode):
+        self.fileHandler.write(self.formatDict(dic), mode)
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 
 

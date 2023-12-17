@@ -3,6 +3,7 @@
 import sys
 import time
 import machine
+import ujson as json
 import uos as os
 sys.path.append('/t/System')
 sys.path.append('/t/System/Test')
@@ -11,12 +12,34 @@ import SystemTest as fileTest
 
 
 
+randdic = {
+    "name": "Example",
+    "type": "Test Data",
+    "items": [1, 2, 3, 4, 5]
+}
+
+data = json.dumps(randdic)
+
 
 def runTest():
-    writeWater = fileTest.FileTest("/t/System/Test/TestLocation1","Eddy.txt","txt","w")
-    writeWater.testMove(folder = "/t/System/Test/TestLocation2",fileName ="TheApple.json",data="I Love Soda", delete = True)
+    writeWater = fileTest.FileTest("/t/System/Test/TestLocation1","SystemData",".json","text")
+    writeWater.testJsonHandler()
     #writeWater.selfTest()
     return True
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
