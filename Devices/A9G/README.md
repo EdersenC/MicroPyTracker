@@ -24,3 +24,20 @@ When working with the A9G board in the MicroPython environment, the following co
 - `CTRL-D`: On a blank line, do a soft reset of the board.
 - `CTRL-E`: On a blank line, enter paste mode.
 
+## Documentation
+
+### Classes
+
+#### FileHandler
+
+- `init(self, folder,fileName, extension, fileType)`:
+- `getFile(self):`: Returns The file location
+- `getFolder(self):`: Returns the folder file's folder location
+- `getFileName(self):`: Returns The file's name
+- `read(self,mode = 'r+'):`: Returns the contents of the file as a string
+- `remove(self):`: Removes The file 
+- `cloneTo(self, folder ="",fileName = None, mode = "w", delete = False):`: Clones The file and its contents, to specified Location, with an Option to dlete old file(Hint: can use as moveTo).
+
+
+  
+
