@@ -26,11 +26,10 @@ When working with the A9G board in the MicroPython environment, the following co
 
 ## Documentation
 
-### Classes
+### Classes:
 
-#### FileHandler
 
-- `init(self, folder,fileName, extension, fileType)`:
+#### FileHandler: `init(self, folder,fileName, extension, fileType)`:
 - `getFile(self):`: Returns The file location
 - `getFolder(self):`: Returns the folder file's folder location
 - `getFileName(self):`: Returns The file's name
