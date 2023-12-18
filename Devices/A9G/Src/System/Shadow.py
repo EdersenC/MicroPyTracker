@@ -73,7 +73,8 @@ class State():
 
 
 class FileHandler(): 
-    def __init__(self, folder,fileName, extension, fileType):
+    def __init__(self, folder,fileName, extension, fileType,config = None):
+        self.config = config
         self.folder = folder
         self.fileName = fileName
         self.extension = extension 
@@ -82,16 +83,16 @@ class FileHandler():
         
     def setFile(self, folder, file, extension):
         self.file = folder+file+extension
-        print("File: {0} Before".format(self.file))
-        print(folder.endswith('/'))
+        #print("File: {0} Before".format(self.file))
+        #print(folder.endswith('/'))
         if not folder.endswith('/'):
             self.file = folder+"/"+file+extension
-            print("File: {0} After ".format(self.file))
+           # print("File: {0} After ".format(self.file))
             
     def getFileType(self):
         return self.fileType
     def getFile(self):
-        print("File: {0} in Get file".format(self.file))
+        #print("File: {0} in Get file".format(self.file))
         return self.file
     def getFileName(self):
         return self.fileName
@@ -103,11 +104,11 @@ class FileHandler():
     def write(self, data, mode="w"):
         try:
             with open(self.file, mode) as file:
-                print("File: {0}, Data: {1}, Obj: {2}".format(self.file, data, file))
+                #print("File: {0}, Data: {1}, Obj: {2}".format(self.file, data, file))
                 file.write(data)
             return True
         except Exception as e:
-            print("Error writing to file: {0}".format(e))
+            #Sprint("Error writing to file: {0}".format(e))
             return False
 
         
@@ -123,9 +124,9 @@ class FileHandler():
     def cloneTo(self, folder ="",fileName = None, mode = "w", delete = False):
         newFile = fileName
         if fileName == None:
-            newFile = "TestMove"+ str(random.randrange(10))+self.extension
+            newFile = "TestMove"+ str(random.randrange(10))
         clone = FileHandler(folder, newFile, self.extension, self.fileType)
-        clone.write(self.read())
+        clone.write(self.read(),mode)
         if delete:
             self.remove()
             self.setFile(self.folder, self.fileName,self.extension)
@@ -136,9 +137,11 @@ class FileHandler():
 
 
 class JsonHandler(FileHandler):
+    import ujson as json
     def __init__(self, folder, fileName, extension, fileType, dic = {} ):
-        self.fileHandler = FileHandler(folder,fileName, extension, fileType)
-        self.file = self.fileHandler.getFile()
+       # self.fileHandler = FileHandler(folder,fileName, extension, fileType)
+        self.setFile(folder, fileName, extension)
+        self.file = self.getFile()
         self.folder = folder
         self.fileName = fileName
         self.extension = extension
@@ -146,6 +149,8 @@ class JsonHandler(FileHandler):
         self.dic = dic
         pass
     
+    
+    # could implment formtJson
     def formatDict(self, dic):
         return json.dumps(dic)
     
@@ -153,8 +158,19 @@ class JsonHandler(FileHandler):
         return self.dic
     
     
-    def write(self, dic, mode):
-        self.fileHandler.write(self.formatDict(dic), mode)
+    def appendDict(self):
+        self.dic.update(json.loads(self.read()))      
+    
+    
+    def writeDict(self, dic = None, mode = "w"):
+        if dic is None:
+            dic = self.getDict()
+        self.write(self.formatDict(dic), mode)
+        
+
+
+
+    
     
     
     

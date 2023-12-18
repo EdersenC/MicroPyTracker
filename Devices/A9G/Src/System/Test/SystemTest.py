@@ -1,170 +1,112 @@
-
-import ujson as json
-import uos as os
-import urandom as random
+""" SystemTest is Used to Test System Info Will Change!!!!!"""
+import Shadow
 import time
-
-""" Shadow class is used to logg and store Device information"""
-class Shadow():
-    def __init__(self, file, mode, formating):
-        self.file = file
-        self.mode = mode
-        self.formating = formating
-        pass
+import uos as os
 
 
-    def log(self, message, type):
-        with open(self.file, self.mode) as f:
-            f.write(message.format(self.formating))
-        pass
-
-    def deBugFunction(func):
-        def wrapper(self,*args, **kwargs):
-            start_time = time.time()
-            result = func(self,*args, **kwargs)
-            end_time = time.time()
-            elapsed_time = end_time - start_time
-            class_name = self.__class__.__name__
-            print("The Funciton: {0} From Class: {1} executed in {2:.4f}s".format(func.__name__,class_name, elapsed_time))
-            return result
-        return wrapper
 
 
-class Flags():
-    def __init__(self):
-        self.SystemStates = {
-        "GPS": False,
-        "wifi": False,
-        "bluetooth": False,
-        "usb": False,
+class FileTest():
+        
+        
+    def __init__(self, folder,fileName,fileExtension,fileType ):
+        self.testFile = Shadow.FileHandler(folder,fileName,fileExtension,fileType,)
+        self.testJson = Shadow.JsonHandler(folder,fileName,fileExtension,fileType)
+        self.testData = None
+        self.randdic = {
+    "adventure": "Quest for the Golden Keyboard",
+    "participants": ["Alice", "Bob", "Charlie", "Dana"],
+    "treasureMap": {
+        "island": "CodeIsle",
+        "coordinates": "28.135° N, 82.334° W",
+        "hiddenTraps": True,
+        "clues": ["Follow the looping river", "Beware of the Bug Swamp", "Seek the Valley of Variables"]
+    },
+    "equipment": {
+        "items": ["Laptop of Lore", "Sword of Syntax", "Shield of Servers"],
+        "spells": ["Firewall Frenzy", "Curse of the Compiler", "Loop of Levitation"]
+    },
+    "currentLocation": "Function Forest",
+    "distanceToTreasure": "500 lines of code",
+    "completedChallenges": 3,
+    "funFact": "The whispering trees of Function Forest communicate via Wi-Fi signals.",
+    "sideQuests": {
+        "Find the Lost USB of Ancient Archives": {
+            "reward": "100 XP",
+            "status": "Incomplete"
+        },
+        "Decode the Cryptic Comments": {
+            "reward": "Mystery Function",
+            "status": "Incomplete"
+        }
+    }
+}
+
+# 
+    def selfTest(self):
+        file = open("testmydogg.txt", "w+")
+        file.write("test")
+        file.close()
+        os.listdir()
+        os.listdir()
+    
+    
+    
+    
+    
+    
+class TestJsonHandler():
+    def __init__(self, folder,fileName,fileExtension,fileType ):
+        self.myDic = {
+            "ZAAWorld": True
+            
+            }
+        self.testFile = Shadow.FileHandler(folder,fileName,fileExtension,fileType)
+        self.testJson = Shadow.JsonHandler(folder,fileName,fileExtension,fileType,self.myDic)
+        self.testData = None
+        self.randdic = {
+        "adventure": "Quest for the Golden Keyboard"
     }
 
-    def getDict(self):
-        return self.SystemStates
-
-
-
-class State():
-    def __init__(self):
-        FLAGS = Flags()
-        self.stateData = FLAGS.getDict()
-        pass
-
-    def getValue(self, key):
-        return self.stateData[key]
-
-    def update(self, key, value):
-        self.stateData[key] = value
+    def testCloneAndMove(self):
+        folder = "/t/System/Test/TestLocation2"
+        fileName = "BigBalls"
+        dic = self.randdic
+        self.testJson.writeDict(dic,"w")
+        self.testJson.cloneTo(folder, fileName ,mode = "w" )
+        #print("Dict: {0} \n\n FormatedDict: {1}, \n\n Obj: {2}".format(self.testJson.getDict(),self.testJson.formatDict(dic), self.testJson))
     
-    def getDict(self):
-        return self.stateData
-            
-    def saveState(self, func):
-        def wrapper(*args, **kwargs):
-            func(*args, **kwargs)
-            pass
-
-
-
-
-
-
-
-
-
-class FileHandler(): 
-    def __init__(self, folder,fileName, extension, fileType):
-        self.folder = folder
-        self.fileName = fileName
-        self.extension = extension 
-        self.setFile(self.folder, self.fileName, self.extension)
-        self.fileType = fileType
+    def test2(self):
+        folder = "/t/System/Test/TestLocation2"
+        fileName = "BigBalls"
+        dic = self.randdic
+        self.testJson.writeDict(dic,"w")
+        print(self.testJson.getDict())
+        self.testJson.appendDict()
+        print("myDic: {0}, \n\n\n MyAppendedDict:".format(self.testJson.getDict()))
+        self.testJson.writeDict()
+        self.testJson.cloneTo(folder, "newzeLand" ,mode = "w" )
         
-    def setFile(self, folder, file, extension):
-        self.file = folder+file+extension
-        print("File: {0} Before".format(self.file))
-        print(folder.endswith('/'))
-        if not folder.endswith('/'):
-            self.file = folder+"/"+file+extension
-            print("File: {0} After ".format(self.file))
-            
-    def getFileType(self):
-        return self.fileType
-    def getFile(self):
-        print("File: {0} in Get file".format(self.file))
-        return self.file
-    def getFileName(self):
-        return self.fileName
-    def getFolder(self):
-        return self.folder
+        for i in range(45):
+            self.testJson.writeDict(dic,"a")
+            self.testJson.cloneTo(folder,mode = "w" )
     
     
-    # TODO: Implement Mode Error handling "w+" errors
-    def write(self, data, mode="w"):
-        try:
-            with open(self.file, mode) as file:
-                print("File: {0}, Data: {1}, Obj: {2}".format(self.file, data, file))
-                file.write(data)
-            return True
-        except Exception as e:
-            print("Error writing to file: {0}".format(e))
-            return False
-
+    
+    
+    
+    
+    
+    
+    #Noticed When fi;eName is all upper Cased, it will force the extension to be as well maybe becuase of how file system works
+    def testWrite(self, data = None):
+        if data == None:
+            data = self.testData
+        self.testFile.write(data)
         
-    def read(self,mode = 'r+'):
-        with open(self.file, mode) as f:
-            contents = f.read()
-            f.close()
-            return contents
-            return " "
-    def remove(self):
-            os.remove(self.file)
-            
-    def cloneTo(self, folder ="",fileName = None, mode = "w", delete = False):
-        newFile = fileName
-        if fileName == None:
-            newFile = "TestMove"+ str(random.randrange(10))+self.extension
-        clone = FileHandler(folder, newFile, self.extension, self.fileType)
-        clone.write(self.read())
-        if delete:
-            self.remove()
-            self.setFile(self.folder, self.fileName,self.extension)
-        del clone
-        return True 
+    def testMove(self, folder, fileName, data, delete = False):
+        self.testWrite(data)
+       # self.testFile.cloneTo(folder, fileName ,"w" ,delete)
 
-
-
-
-class JsonHandler(FileHandler):
-    def __init__(self, folder, fileName, extension, fileType, dic = {} ):
-        self.fileHandler = FileHandler(folder,fileName, extension, fileType)
-        self.file = self.fileHandler.getFile()
-        self.folder = folder
-        self.fileName = fileName
-        self.extension = extension
-        self.fileType = fileType
-        self.dic = dic
-        pass
     
-    def formatDict(self, dic):
-        return json.dumps(dic)
-    
-    def getDict(self):
-        return self.dic
-    
-    
-    def write(self, dic, mode):
-        self.fileHandler.write(self.formatDict(dic), mode)
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
 
