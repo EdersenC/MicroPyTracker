@@ -10,7 +10,11 @@ class FileTest():
         
         
     def __init__(self, folder,fileName,fileExtension,fileType ):
+<<<<<<< HEAD
         self.testFile = Shadow.FileHandler(folder,fileName,fileExtension,fileType,)
+=======
+        self.testFile = Shadow.FileHandler(folder,fileName,fileExtension,fileType)
+>>>>>>> 16cbddd627fe4ef9be01d560aa1e5618e0964fc2
         self.testJson = Shadow.JsonHandler(folder,fileName,fileExtension,fileType)
         self.testData = None
         self.randdic = {
@@ -39,6 +43,7 @@ class FileTest():
             "reward": "Mystery Function",
             "status": "Incomplete"
         }
+<<<<<<< HEAD
     }
 }
 
@@ -66,8 +71,12 @@ class TestJsonHandler():
         self.testData = None
         self.randdic = {
         "adventure": "Quest for the Golden Keyboard"
+=======
+>>>>>>> 16cbddd627fe4ef9be01d560aa1e5618e0964fc2
     }
+}
 
+<<<<<<< HEAD
     def testCloneAndMove(self):
         folder = "/t/System/Test/TestLocation2"
         fileName = "BigBalls"
@@ -107,6 +116,40 @@ class TestJsonHandler():
     def testMove(self, folder, fileName, data, delete = False):
         self.testWrite(data)
        # self.testFile.cloneTo(folder, fileName ,"w" ,delete)
+=======
+# 
+    def selfTest(self):
+        file = open("testmydogg.txt", "w+")
+        file.write("test")
+        file.close()
+        os.listdir()
+        os.listdir()
+    
+    
+    
+    
+    
+    def testJsonHandler(self):
+        folder = "/t/System/Test/TestLocation2"
+        fileName = "Json"
+        dic = self.randdic
+        print("Dict: {0} \n\n FormatedDict: {1}, \n\n Obj: {2}".format(self.testJson.getDict(),self.testJson.formatDict(dic), self.testJson))
+        self.testJson.write(dic,"w")
+        self.testJson.cloneTo(folder, fileName ,"w" ,False)
+        
+        
+    
+    
+    #Noticed When fi;eName is all upper Cased, it will force the extension to be as well maybe becuase of how file system works
+    def testWrite(self, data = None):
+        if data == None:
+            data = self.testData
+        self.testFile.write(data)
+        
+    def testMove(self, folder, fileName, data, delete = False):
+        self.testWrite(data)
+        self.testFile.cloneTo(folder, fileName ,"w" ,delete)
+>>>>>>> 16cbddd627fe4ef9be01d560aa1e5618e0964fc2
 
     
 
