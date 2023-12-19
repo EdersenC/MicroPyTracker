@@ -23,24 +23,10 @@ data = json.dumps(randdic)
 
 def runTest():
     writeWater = fileTest.TestJsonHandler("/t/System/Test/TestLocation1","SystemData",".json","text")
-    writeWater.testCloneAndMove()
-    writeWater.test2()
-    #writeWater.selfTest()
+#     writeWater.testCloneAndMove()
+    #writeWater.test3()
+    writeWater.reNameTest3()
     return True
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

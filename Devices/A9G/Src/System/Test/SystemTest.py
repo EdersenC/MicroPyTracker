@@ -61,7 +61,7 @@ class TestJsonHandler():
             "ZAAWorld": True
             
             }
-        self.testFile = Shadow.FileHandler(folder,fileName,fileExtension,fileType)
+        #self.testFile = Shadow.FileHandler(folder,fileName,fileExtension,fileType)
         self.testJson = Shadow.JsonHandler(folder,fileName,fileExtension,fileType,self.myDic)
         self.testData = None
         self.randdic = {
@@ -92,10 +92,70 @@ class TestJsonHandler():
             self.testJson.cloneTo(folder,mode = "w" )
     
     
+    def testCloneMem(self):
+        folder = "/t/System/Test/TestLocation_Clones"
+        fileName = "myClone"
+        dic = self.randdic
+        self.testJson.writeDict(dic,"w")
+        print(self.testJson.getDict())
+        self.testJson.appendDict()
+        print("myDic: {0}, \n\n\n MyAppendedDict:".format(self.testJson.getDict()))
+        self.testJson.writeDict()
+        self.testJson.cloneTo(folder, "newzeLand" ,mode = "w" )
+        print(self.testJson.exists())
+        self.testJson.remove()
+        print(self.testJson.exists())
     
     
+    def reNameTest3(self):
+        dic = self.randdic
+        json = self.testJson
+        LOOP = 2
+        json.writeDict(dic,"w")
+        folders = ["/t/System/Test/TestLocation1","/t/System/Test/TestLocation2","/t/System/Test/TestLocation3","/t/System/Test/TestLocation4"]
+        differentList = ["OceanWaves", "MountainPeak", "DesertMirage", "ForestTrail", "RiverBend", "StarrySky", "SunnyMeadow", "RainyCity", "SnowyVillage"]
+        fileNames = ["LargeBallons", "GiantCats", "MySystemStoarge", "BigStuffTimmy", "LongJohnJhonson", "MyepicLavaPit", "1987Wor_end", "THEWORLD", "POSEPOSE"]
+        for i in range(LOOP):
+            innerFolder = folders[i]
+            for j in range(len(fileNames)):
+                json.setFile(
+                        folder = innerFolder,
+                        fileName = fileNames[j]
+                        )
+                json.reName(differentList[j])
+                print("MyFile: {0}, \n\n\n MyAppendedDict:".format(json.getFile()))
+                
+        
+        
     
-    
+    def test3(self):
+        folders = ["/t/System/Test/TestLocation1","/t/System/Test/TestLocation2","/t/System/Test/TestLocation3","/t/System/Test/TestLocation4"]
+        differentList = ["OceanWaves", "MountainPeak", "DesertMirage", "ForestTrail", "RiverBend", "StarrySky", "SunnyMeadow", "RainyCity", "SnowyVillage"]
+        fileNames = ["LargeBallons", "GiantCats", "MySystemStoarge", "BigStuffTimmy", "LongJohnJhonson", "MyepicLavaPit", "1987Wor_end", "THEWORLD", "POSEPOSE"]
+
+        
+        dic = self.randdic
+        json = self.testJson
+        LOOP = 2
+        json.writeDict(dic,"w")
+        json.reName("BigStuffT")
+        json.writeDict(dic,"w")        
+        
+        for i in range(LOOP):
+            innerFolder = folders[i]
+            for j in fileNames:
+                json.setFile(
+                    folder = innerFolder,
+                    fileName = j
+                    )
+                json.writeDict(dic,"w")
+                json.reName(j)
+                if j == "LargeBallons":
+                    json.writeDict(dic,"a")
+                    json.writeDict(dic,"a")
+                    json.writeDict(dic,"a")
+                    
+                print("MyFile: {0}, \n\n\n MyAppendedDict:".format(json.getFile()))
     
     
     #Noticed When fi;eName is all upper Cased, it will force the extension to be as well maybe becuase of how file system works

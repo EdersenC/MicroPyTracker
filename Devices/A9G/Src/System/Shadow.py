@@ -80,17 +80,11 @@ class FileHandler():
         self.extension = extension 
         self.setFile(self.folder, self.fileName, self.extension)
         self.fileType = fileType
-        
-    def setFile(self, folder, file, extension):
-        self.file = folder+file+extension
-        #print("File: {0} Before".format(self.file))
-        #print(folder.endswith('/'))
-        if not folder.endswith('/'):
-            self.file = folder+"/"+file+extension
-           # print("File: {0} After ".format(self.file))
-            
+  
     def getFileType(self):
         return self.fileType
+    def getExtension(self):
+        return self.extension
     def getFile(self):
         #print("File: {0} in Get file".format(self.file))
         return self.file
@@ -98,10 +92,30 @@ class FileHandler():
         return self.fileName
     def getFolder(self):
         return self.folder
-    
+    def setFolder(self,folder):
+        self.folder = folder
+    def setFileName(self,fileName):
+        self.fileName = fileName
+        
+    def setFile(self, folder = None, fileName= None, extension= None):
+        print("\nObjects:\nfolder:{0} \nFile:{1} \nextension:{2}".format(self.getFolder(),self.getFileName(),self.getExtension()))
+        print("\nObjects:\nfolder:{0} \nFile:{1} \nextension:{2}".format(folder,fileName,extension))    
+        if extension is None:
+            extension = self.getExtension()
+        if folder is None or fileName is None:
+            self.setFile(self.getFolder(), self.getFileName(), self.getExtension())
+        else:
+            self.file = folder+fileName+extension
+            if not folder.endswith('/'):
+                self.setFolder(folder+"/")
+                self.setFileName(fileName)
+                self.file = self.getFolder()+self.getFileName()+self.getExtension()
+               # print("File: {0} After ".format(self.file))
+        
     
     # TODO: Implement Mode Error handling "w+" errors
     def write(self, data, mode="w"):
+        print("Yooooooo in here")
         try:
             with open(self.file, mode) as file:
                 #print("File: {0}, Data: {1}, Obj: {2}".format(self.file, data, file))
@@ -110,7 +124,26 @@ class FileHandler():
         except Exception as e:
             #Sprint("Error writing to file: {0}".format(e))
             return False
-
+    
+    def exists(self, file= None):
+        if file is None:
+            file = self.file
+        try:
+            os.stat(file)
+            return True
+        except Exception as e:
+            return False
+        
+         #Could implement folder Renaming!!!
+    def reName(self,fileName = None):
+        newFile = str(self.getFolder()+fileName+self.getExtension())
+        if self.exists(newFile):
+            return "File With same Name already exist's"
+        if self.exists():
+            os.rename(self.getFile(),newFile)
+            self.setFile(self.getFolder(), fileName, self.getExtension())
+            return True
+        return "Cant Do That you Fool What File!!!!"
         
     def read(self,mode = 'r+'):
         with open(self.file, mode) as f:
@@ -121,10 +154,10 @@ class FileHandler():
     def remove(self):
             os.remove(self.file)
             
-    def cloneTo(self, folder ="",fileName = None, mode = "w", delete = False):
+    def cloneTo(self, folder ="",fileName = None, mode = "w", delete = False,):
         newFile = fileName
         if fileName == None:
-            newFile = "TestMove"+ str(random.randrange(10))
+            newFile = self.fileName+ str(random.randrange(10))
         clone = FileHandler(folder, newFile, self.extension, self.fileType)
         clone.write(self.read(),mode)
         if delete:
@@ -140,13 +173,14 @@ class JsonHandler(FileHandler):
     import ujson as json
     def __init__(self, folder, fileName, extension, fileType, dic = {} ):
        # self.fileHandler = FileHandler(folder,fileName, extension, fileType)
-        self.setFile(folder, fileName, extension)
-        self.file = self.getFile()
         self.folder = folder
         self.fileName = fileName
         self.extension = extension
+        self.setFile(folder, fileName, extension)
+        self.file = self.getFile()
         self.fileType = fileType
         self.dic = dic
+        self.cloneDict = {"first":self.file}
         pass
     
     
