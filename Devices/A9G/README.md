@@ -35,7 +35,7 @@ When working with the A9G board in the MicroPython environment, the following co
 - `remove(self):`: Removes The file 
 - `cloneTo(self, folder ="",fileName = None, mode = "w", delete = False):`: Clones The file and its contents, to specified Location, with an Option to delete old file(Hint: can use as moveTo).
 
-### JsonHandler(FileHandler) init(self, folder, fileName, extension, fileType, dic = {} ):
+#### JsonHandler(FileHandler) init(self, folder, fileName, extension, fileType, dic = {} ):
 - `getDict(self):`: returns The Objects dictionary.
 - `appendDict(self):`: Appends The dictionary with the contents of The Objects set file
 - `formatDict(self, dic):`: Returns given dictionary as a String     Function name may vary
