@@ -9,7 +9,7 @@ sys.path.append('/t/System')
 sys.path.append('/t/System/Test')
 import Boot as device
 import SystemTest as fileTest
-
+import gc
 
 
 randdic = {
@@ -42,9 +42,23 @@ def runDevice():
             print("at Main",e)
 
 
+def TestA9g():
+    gc.enable()
+    print("watchdog armed")
+    machine.watchdog_on(30)
+    while True:
+        try:
+            device.secureBoot2()
+            machine.watchdog_reset()
+        except Exception as e:
+            print("at Main",e)
 
 
 
-runTest()
+
+
+
+#device.secureBoot2()
+TestA9g()
 
 

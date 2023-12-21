@@ -38,6 +38,14 @@ class Flags():
         "bluetooth": False,
         "usb": False,
     }
+        self.SystemLog = {
+        1: False,
+        2: False,
+        3: False,
+        4: False,
+    }
+        
+        
 
     def getDict(self):
         return self.SystemStates
@@ -191,11 +199,30 @@ class JsonHandler(FileHandler):
     def getDict(self):
         return self.dic
     
-    
     def appendDict(self):
         self.dic.update(json.loads(self.read()))      
     
+    def clearDict(self):
+        self.dic = {}
+        
     
+    
+    def updateDict(self,key = None,value = None ):
+        dic = self.getDict
+        if key is None and value is None:
+            return False
+        dic[key] = value
+        
+    def getDictValue(self, key):
+        if key is None:
+            return False
+        try:
+            return dic[key]
+        except Exception as e:
+            return False
+        
+            
+            
     def writeDict(self, dic = None, mode = "w"):
         if dic is None:
             dic = self.getDict()
